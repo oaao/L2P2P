@@ -61,10 +61,31 @@ class Decoder:
         self._i += 1
 
     def _read(self, length: int) -> bytes:
-        pass
+        """ Read the {length} number of bytes and return that result """
+
+        if self._i + length > len(self._data):
+            raise IndexError(
+                f'Cannot read {str(length)} bytes from current position: {str(self._i)}'
+            )
+
+        data = self._data[self._i : self._i + 1]
+
+        self._i += length
+
+        return data
 
     def _read_until(self, token: bytes) -> bytes:
-        pass
+        """ Read from bencoded data until given token is found, and return read characters """
+
+        try:
+            occurs_at = self._data.index(token, self._i)
+            chars     = self._data[self._i : occurs_at]
+
+            self._index = occurs_at +1
+
+            return chars
+        except ValueError:
+            raise RuntimeError(f'Unable to find token: {str(token)}')
 
     def _decode_int(self) -> int:
         return int(self._read_until(TOKEN_END))

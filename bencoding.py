@@ -68,7 +68,7 @@ class Decoder:
                 f'Cannot read {str(length)} bytes from current position: {str(self._i)}'
             )
 
-        data = self._data[self._i : self._i + 1]
+        data = self._data[self._i : self._i + length]
 
         self._i += length
 
@@ -84,6 +84,7 @@ class Decoder:
             self._i = occurs_at +1
 
             return chars
+
         except ValueError:
             raise RuntimeError(f'Unable to find token: {str(token)}')
 
@@ -118,8 +119,8 @@ class Decoder:
 
     def _decode_string(self) -> str:
 
-        to_read = int(self._read_until(T_STR_SEPARATOR))
-        s       = self._read(to_read)
+        read_length = int(self._read_until(T_STR_SEPARATOR))
+        s           = self._read(read_length)
 
         return s
 

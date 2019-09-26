@@ -199,6 +199,6 @@ class Encoder:
             else:
                 raise RuntimeError(f'Malformed dictinoary:\n{d}')
 
-        content ++ str.encode('e')
+        content += str.encode('e')
 
         return content

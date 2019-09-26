@@ -1,3 +1,4 @@
+from collections import OrderedDict
 
 # BENCODING TOKEN MARKERS
 T_INT           = b'i'

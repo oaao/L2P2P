@@ -25,7 +25,7 @@ class Decoder:
         :return A python object representing the bencoded data
         """
 
-        ch = self._peek()
+        c = self._peek()
 
         # token <--> action conditinoal rubric
         #     usually in the form of: 'consume' the marker token, then return relevant content
@@ -50,7 +50,7 @@ class Decoder:
     def _peek(self) -> bytes:
         """ Return the next character from the bencoded data, or None """
 
-        if self._i + 1 >= len(data):
+        if self._i + 1 >= len(self._data):
             return None
 
         return self._data[self._i : self._i + 1]

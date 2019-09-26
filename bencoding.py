@@ -99,7 +99,7 @@ class Decoder:
         while self._data[self._i : self._i + 1] != T_END:
             l.append(self.decode())
 
-        self.consume()  # advance past the T_END token
+        self._consume()  # advance past the T_END token
 
         return l
 

@@ -50,7 +50,7 @@ class Decoder:
     def _peek(self) -> bytes:
         """ Return the next character from the bencoded data, or None """
 
-        if self._index + 1 >= len(data):
+        if self._i + 1 >= len(data):
             return None
 
         return self._data[self._i : self._i + 1]
@@ -81,7 +81,7 @@ class Decoder:
             occurs_at = self._data.index(token, self._i)
             chars     = self._data[self._i : occurs_at]
 
-            self._index = occurs_at +1
+            self._i = occurs_at +1
 
             return chars
         except ValueError:

@@ -29,7 +29,7 @@ class Decoder:
 
         # token <--> action conditinoal rubric
         #     usually in the form of: 'consume' the marker token, then return relevant content
-        if c is None:
+        if   c is None:
             raise EOFError('Unexpected EOF')
         elif c == T_INT:
             self._consume()
@@ -143,7 +143,21 @@ class Encoder:
         return self.encode_next(self._data)
 
     def encode_next(self, data):
-        pass
+
+        if   type(data) == str:
+            return self._encode_string(data)
+        elif type(data) == int:
+            return self._encode_int(data)
+        elif type(data) == list:
+            return self._encode_list(data)
+        elif isinstance(dict):
+            # type()       evaluates exact type
+            # isinstance() accounts for inheritance chain - e.g. OrderedDict
+            return self._encode_dict(data)
+        elif type(data) == bytes:
+            return self._encode_bytes(data)
+        else:  # any other datatype we haven't added support for: cya kiddo
+            return None
 
     def _encode_int(self, i: int) -> bytes:
         pass

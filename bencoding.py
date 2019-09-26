@@ -102,7 +102,7 @@ class Decoder:
 
         return l
 
-    def _decode_dict(self):
+    def _decode_dict(self) -> dict:
 
         d = OrderedDict()
 
@@ -116,10 +116,46 @@ class Decoder:
 
         return d
 
-    def _decode_string(self):
+    def _decode_string(self) -> str:
 
         to_read = int(self._read_until(T_STR_SEPARATOR))
         s       = self._read(to_read)
 
         return s
 
+class Encoder:
+    """
+    Encode Python datatypes to a byte sequence
+
+    (str, int, list, dict, bytes) - anything else is ignored
+
+    """
+
+    def __init__(self, data):
+        self._data = data
+
+    def encode(self) -> bytes:
+        """
+        Encode Python datatype to bencoded bstring
+
+        :return bencoded binary data
+        """
+        return self.encode_next(self._data)
+
+    def encode_next(self, data):
+        pass
+
+    def _encode_int(self, i: int) -> bytes:
+        pass
+
+    def _encode_str(self, s: str) -> bytes:
+        pass
+
+    def _encode_bytes(self, b: bytes) -> bytes:
+        pass
+
+    def _encode_list(self, l: list) -> bytes:
+        pass
+
+    def _encode_dict(self, d: dict) -> bytes:
+        pass

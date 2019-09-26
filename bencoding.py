@@ -160,16 +160,43 @@ class Encoder:
             return None
 
     def _encode_int(self, i: int) -> bytes:
-        pass
+        return str.encode(T_INT + str(value) + T_END)
 
     def _encode_str(self, s: str) -> bytes:
-        pass
+        tokenized = str(len(s)) + T_STR_SEPARATOR + s
+        return str.encode(tokenized)
 
-    def _encode_bytes(self, b: bytes) -> bytes:
-        pass
+    def _encode_bytes(self, b: str) -> bytes:
+
+        content =  bytearray()
+        content += str.encode(str(len(b)))
+        content += str.encode(T_STR_SEPARATOR)
+        content += b
+
+        return content
 
     def _encode_list(self, l: list) -> bytes:
-        pass
+
+        content =  bytearray(T_LIST, 'utf-8')
+        content += b''.join([self.encode_next(item) for item in l])
+        content += str.encode(T_END)
+
+        return content
 
     def _encode_dict(self, d: dict) -> bytes:
-        pass
+
+        content  = bytearay(T_DICT, 'utf-8')
+
+        for k, v in d.items():
+            key = self.encode_next(k)
+            val = self.encode_next(v)
+
+            if key and val:
+                content += key
+                content += val
+            else:
+                raise RuntimeError(f'Malformed dictinoary:\n{d}')
+
+        content ++ str.encode(T_END)
+
+        return content

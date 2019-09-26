@@ -88,7 +88,7 @@ class Decoder:
             raise RuntimeError(f'Unable to find token: {str(token)}')
 
     def _decode_int(self) -> int:
-        return int(self._read_until(TOKEN_END))
+        return int(self._read_until(T_END))
 
     def _decode_list(self) -> list:
 

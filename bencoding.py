@@ -147,7 +147,7 @@ class Encoder:
     def encode_next(self, data):
 
         if   type(data) == str:
-            return self._encode_string(data)
+            return self._encode_str(data)
         elif type(data) == int:
             return self._encode_int(data)
         elif type(data) == list:

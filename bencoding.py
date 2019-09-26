@@ -187,7 +187,7 @@ class Encoder:
 
     def _encode_dict(self, d: dict) -> bytes:
 
-        content  = bytearay('d', 'utf-8')
+        content  = bytearray('d', 'utf-8')
 
         for k, v in d.items():
             key = self.encode_next(k)

@@ -152,7 +152,7 @@ class Encoder:
             return self._encode_int(data)
         elif type(data) == list:
             return self._encode_list(data)
-        elif isinstance(dict):
+        elif isinstance(data, dict):
             # type()       evaluates exact type
             # isinstance() accounts for inheritance chain - e.g. OrderedDict
             return self._encode_dict(data)

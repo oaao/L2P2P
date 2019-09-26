@@ -162,32 +162,32 @@ class Encoder:
             return None
 
     def _encode_int(self, i: int) -> bytes:
-        return str.encode(T_INT + str(value) + T_END)
+        return str.encode('i' + str(i) + 'e')
 
     def _encode_str(self, s: str) -> bytes:
-        tokenized = str(len(s)) + T_STR_SEPARATOR + s
+        tokenized = str(len(s)) + ':' + s
         return str.encode(tokenized)
 
     def _encode_bytes(self, b: str) -> bytes:
 
         content =  bytearray()
         content += str.encode(str(len(b)))
-        content += str.encode(T_STR_SEPARATOR)
+        content += str.encode(':')
         content += b
 
         return content
 
     def _encode_list(self, l: list) -> bytes:
 
-        content =  bytearray(T_LIST, 'utf-8')
+        content =  bytearray('l', 'utf-8')
         content += b''.join([self.encode_next(item) for item in l])
-        content += str.encode(T_END)
+        content += str.encode('e')
 
         return content
 
     def _encode_dict(self, d: dict) -> bytes:
 
-        content  = bytearay(T_DICT, 'utf-8')
+        content  = bytearay('d', 'utf-8')
 
         for k, v in d.items():
             key = self.encode_next(k)
@@ -199,6 +199,6 @@ class Encoder:
             else:
                 raise RuntimeError(f'Malformed dictinoary:\n{d}')
 
-        content ++ str.encode(T_END)
+        content ++ str.encode('e')
 
         return content

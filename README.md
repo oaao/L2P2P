@@ -2,9 +2,12 @@
 
 ## bencoding
 
-See [references](#refs) below for a closer understanding of bencoding, as well as the broader BitTorrent specifications. Some brief examples:
+See [references](#refs) below for a closer understanding of bencoding, as well as the broader BitTorrent specifications.
+
+### decoding bencoded data
 
 ```python
+>>> from bencoding import Decoder
 >>> bencoded_int  = b'i12345e'
 >>> bencoded_str  = b'9:bencoding'
 >>> bencoded_list = b'l5:hello3:how3:are3:youi12345ee'
@@ -20,6 +23,11 @@ b'bencoding'
 >>> Decoder(bencoded_dict).decode()
 OrderedDict([(b'type', b'dict'), (b'told_you', b'so')])
 ```
+
+### encoding bencoded data
+
+```python
+>>> from bencoding import Encoder
 
 ## references <a name="refs"></a>
 
